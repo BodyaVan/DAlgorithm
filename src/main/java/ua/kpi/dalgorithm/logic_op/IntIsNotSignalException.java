@@ -1,4 +1,4 @@
-package ua.kpi.dalgorithm.logic_elem;
+package ua.kpi.dalgorithm.logic_op;
 
 /**
  * Created on 07.03.2015

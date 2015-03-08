@@ -1,4 +1,4 @@
-package ua.kpi.dalgorithm.logic_elem;
+package ua.kpi.dalgorithm.logic_op;
 
 import ua.kpi.dalgorithm.Signal;
 
@@ -9,7 +9,7 @@ import java.util.Arrays;
  *
  * @author Bohdan Vanchuhov
  */
-public abstract class GenericLogicElement implements LogicElement {
+public abstract class GenericLogicOperation implements LogicOperation {
     @Override
     public int execute(int... inputSignals) {
         checkInputSignals(inputSignals);

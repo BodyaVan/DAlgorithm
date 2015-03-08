@@ -1,4 +1,4 @@
-package ua.kpi.dalgorithm.logic_elem;
+package ua.kpi.dalgorithm.logic_op;
 
 import ua.kpi.dalgorithm.Signal;
 import ua.kpi.dalgorithm.SignalMath;
@@ -8,7 +8,7 @@ import ua.kpi.dalgorithm.SignalMath;
  *
  * @author Bohdan Vanchuhov
  */
-public class OrElement extends GenericLogicElement {
+public class OrOperation extends GenericLogicOperation {
     @Override
     protected int execute(int s1, int s2) {
         return s1 | s2;

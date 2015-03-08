@@ -1,4 +1,4 @@
-package ua.kpi.dalgorithm.logic_elem;
+package ua.kpi.dalgorithm.logic_op;
 
 import ua.kpi.dalgorithm.Signal;
 
@@ -7,7 +7,7 @@ import ua.kpi.dalgorithm.Signal;
  *
  * @author Bohdan Vanchuhov
  */
-public interface LogicElement {
+public interface LogicOperation {
     int execute(int... inputSignals);
     Signal execute(Signal... inputSignals);
 }

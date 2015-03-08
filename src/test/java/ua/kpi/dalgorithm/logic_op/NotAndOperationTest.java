@@ -1,4 +1,4 @@
-package ua.kpi.dalgorithm.logic_elem;
+package ua.kpi.dalgorithm.logic_op;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,12 +11,12 @@ import static org.hamcrest.Matchers.is;
  *
  * @author Bohdan Vanchuhov
  */
-public class NotAndElementTest {
-    private LogicElement andElement;
+public class NotAndOperationTest {
+    private LogicOperation andElement;
 
     @Before
     public void setUp() throws Exception {
-        andElement = new NotAndElement();
+        andElement = new NotAndOperation();
     }
 
     @Test

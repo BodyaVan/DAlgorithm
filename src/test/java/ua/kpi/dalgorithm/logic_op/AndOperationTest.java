@@ -1,4 +1,4 @@
-package ua.kpi.dalgorithm.logic_elem;
+package ua.kpi.dalgorithm.logic_op;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,12 +13,12 @@ import static ua.kpi.dalgorithm.Signal.*;
  *
  * @author Bohdan Vanchuhov
  */
-public class AndElementTest {
-    private LogicElement andElement;
+public class AndOperationTest {
+    private LogicOperation andElement;
 
     @Before
     public void setUp() throws Exception {
-        andElement = new AndElement();
+        andElement = new AndOperation();
     }
 
     @Test
