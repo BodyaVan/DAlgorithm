@@ -8,51 +8,40 @@ import java.io.Serializable;
  * @author Bohdan Vanchuhov
  */
 public enum Signal implements Serializable {
-    ZERO,
-    ONE,
-    NO_DIGIT;
+    ZERO('0', 0),
+    ONE('1', 1),
+    D('D', -1),
+    NOT_D('d', -1),
+    UNDEFINED('-', -1);
 
-    public static final char NO_DIGIT_CHAR = '-';
-    public static final String NO_DIGIT_STRING = "-";
+    private char charRepresentation;
+    private int intValue;
+
+    Signal(char charRepresentation, int intValue) {
+        this.charRepresentation = charRepresentation;
+        this.intValue = intValue;
+    }
 
     public static Signal valueOf(char c) {
-        switch (c) {
-            case '0': return ZERO;
-            case '1': return ONE;
-            default:
-                return NO_DIGIT;
-        }
+        if (c == ZERO.charRepresentation) return ZERO;
+        if (c == ONE.charRepresentation) return ONE;
+        if (c == D.charRepresentation) return D;
+        if (c == NOT_D.charRepresentation) return NOT_D;
+        return UNDEFINED;
     }
 
     public static Signal valueOf(int i) {
-        switch (i) {
-            case 0: return ZERO;
-            case 1: return ONE;
-            default:
-                return NO_DIGIT;
-        }
+        if (i == ZERO.intValue) return ZERO;
+        if (i == ONE.intValue) return ONE;
+        return UNDEFINED;
     }
 
     public int intValue() {
-        switch (this) {
-            case ZERO: return 0;
-            case ONE: return 1;
-            case NO_DIGIT: return -1;
-            default:
-                assert false;
-                return -1;
-        }
+        return intValue;
     }
 
     @Override
     public String toString() {
-        switch (this) {
-            case ZERO: return "0";
-            case ONE: return "1";
-            case NO_DIGIT: return NO_DIGIT_STRING;
-            default:
-                assert false;
-                return NO_DIGIT_STRING;
-        }
+        return Character.toString(charRepresentation);
     }
 }
