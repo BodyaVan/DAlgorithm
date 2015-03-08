@@ -1,5 +1,7 @@
 package ua.kpi.dalgorithm;
 
+import java.util.Arrays;
+
 import static ua.kpi.dalgorithm.Signal.*;
 
 /**
@@ -29,5 +31,20 @@ public final class SignalMath {
             return ONE;
         }
         return ZERO;
+    }
+
+    public static Signal intersection(Signal s1, Signal s2) {
+        if (s1 == ONE && s2 == ZERO) return D;
+        if (s1 == ZERO && s2 == ONE) return NOT_D;
+        if ((s1 == D && s2 == NOT_D) || (s1 == NOT_D && s2 == D)) return ZERO;
+        if (s1 == s2) return s1;
+        if (anyMatch(ZERO, s1, s2)) return ZERO;
+        if (anyMatch(ONE, s1, s2)) return ONE;
+
+        return UNDEFINED;
+    }
+
+    private static boolean anyMatch(Signal expected, Signal... signals) {
+        return Arrays.stream(signals).anyMatch(s -> s == expected);
     }
 }
