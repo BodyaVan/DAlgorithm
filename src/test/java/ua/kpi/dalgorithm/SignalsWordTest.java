@@ -41,4 +41,22 @@ public class SignalsWordTest {
     public void testToString() throws Exception {
         assertThat(signalsWord.toString(), is("01-d-D0"));
     }
+
+    @Test
+    public void intersect_sameSize() throws Exception {
+        SignalsWord signalsWordForIntersection = SignalsWord.parse("---10d-");
+        signalsWord.intersect(signalsWordForIntersection);
+        assertThat(signalsWord.toString(), is("01-1000"));
+    }
+
+    @Test
+    public void intersect_stringArg_sameSize() throws Exception {
+        signalsWord.intersect("---10d-");
+        assertThat(signalsWord.toString(), is("01-1000"));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void intersect_stringArg_differentSize() throws Exception {
+        signalsWord.intersect("-10d-");
+    }
 }

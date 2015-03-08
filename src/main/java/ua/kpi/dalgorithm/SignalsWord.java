@@ -63,4 +63,29 @@ public class SignalsWord implements Iterable<Signal> {
         }
         return stringBuilder.toString();
     }
+
+    public SignalsWord intersect(SignalsWord other) {
+        checkSize(other);
+
+        for (int i = 0; i < signals.size(); i++) {
+            Signal newSignal = SignalMath.intersection(signals.get(i), other.signals.get(i));
+            signals.set(i, newSignal);
+        }
+
+        return this;
+    }
+
+    private void checkSize(SignalsWord other) {
+        if (other.signals.size() != signals.size()) {
+            throw new IllegalArgumentException(
+                    String.format("The sizes are not same. Expected %d, but actual is %d",
+                            signals.size(), other.signals.size())
+            );
+        }
+    }
+
+    public void intersect(String s) {
+        SignalsWord other = SignalsWord.parse(s);
+        intersect(other);
+    }
 }
