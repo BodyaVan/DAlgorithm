@@ -10,4 +10,6 @@ import ua.kpi.dalgorithm.Signal;
 public interface LogicOperation {
     int execute(int... inputSignals);
     Signal execute(Signal... inputSignals);
+
+    Signal getUnimportantInput();
 }

@@ -30,4 +30,9 @@ public abstract class InvertingLogicOperation implements LogicOperation {
     private Signal inverse(Signal signal) {
         return SignalMath.not(signal);
     }
+
+    @Override
+    public Signal getUnimportantInput() {
+        return getNotInvertingLogicElement().getUnimportantInput();
+    }
 }
