@@ -3,8 +3,9 @@ package ua.kpi.dalgorithm;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-import static ua.kpi.dalgorithm.Signal.*;
+import static org.hamcrest.Matchers.is;
+import static ua.kpi.dalgorithm.Signal.ONE;
+import static ua.kpi.dalgorithm.Signal.ZERO;
 import static ua.kpi.dalgorithm.SignalMath.and;
 import static ua.kpi.dalgorithm.SignalMath.or;
 
@@ -21,6 +22,6 @@ public class SignalMathTest {
 
     @Test
     public void not_0() throws Exception {
-        assertThat(not(ZERO), is(ONE));
+        assertThat(SignalMath.not(ZERO), is(ONE));
     }
 }
