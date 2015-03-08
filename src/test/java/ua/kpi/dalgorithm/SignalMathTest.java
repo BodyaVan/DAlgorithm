@@ -11,17 +11,17 @@ import static ua.kpi.dalgorithm.SignalMath.or;
 
 public class SignalMathTest {
     @Test
-    public void and_0_1() throws Exception {
+    public void testAnd_0_1() throws Exception {
         assertThat(and(ZERO, ONE), is(ZERO));
     }
 
     @Test
-    public void or_0_1() throws Exception {
+    public void testOr_0_1() throws Exception {
         assertThat(or(ZERO, ONE), is(ONE));
     }
 
     @Test
-    public void not_0() throws Exception {
+    public void testNot_0() throws Exception {
         assertThat(SignalMath.not(ZERO), is(ONE));
     }
 }
