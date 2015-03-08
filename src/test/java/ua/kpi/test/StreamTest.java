@@ -12,7 +12,7 @@ import static org.hamcrest.Matchers.is;
  *
  * @author Bohdan Vanchuhov
  */
-public class SteamTest {
+public class StreamTest {
     @Test
     public void machAny_true() throws Exception {
         boolean result = IntStream.of(1, 2, 3, 5)
