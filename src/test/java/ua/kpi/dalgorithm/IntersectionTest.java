@@ -1,10 +1,11 @@
 package ua.kpi.dalgorithm;
 
 import org.junit.Test;
+import ua.kpi.dalgorithm.signal.SignalMath;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static ua.kpi.dalgorithm.Signal.*;
+import static ua.kpi.dalgorithm.signal.Signal.*;
 
 /**
  * Created on 08.03.2015

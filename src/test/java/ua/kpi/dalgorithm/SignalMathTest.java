@@ -1,13 +1,14 @@
 package ua.kpi.dalgorithm;
 
 import org.junit.Test;
+import ua.kpi.dalgorithm.signal.SignalMath;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static ua.kpi.dalgorithm.Signal.ONE;
-import static ua.kpi.dalgorithm.Signal.ZERO;
-import static ua.kpi.dalgorithm.SignalMath.and;
-import static ua.kpi.dalgorithm.SignalMath.or;
+import static ua.kpi.dalgorithm.signal.Signal.ONE;
+import static ua.kpi.dalgorithm.signal.Signal.ZERO;
+import static ua.kpi.dalgorithm.signal.SignalMath.and;
+import static ua.kpi.dalgorithm.signal.SignalMath.or;
 
 public class SignalMathTest {
     @Test

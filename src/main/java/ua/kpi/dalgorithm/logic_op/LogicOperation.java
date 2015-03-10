@@ -1,6 +1,6 @@
 package ua.kpi.dalgorithm.logic_op;
 
-import ua.kpi.dalgorithm.Signal;
+import ua.kpi.dalgorithm.signal.Signal;
 
 /**
  * Created on 07.03.2015

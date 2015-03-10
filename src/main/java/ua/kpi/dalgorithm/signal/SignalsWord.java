@@ -1,4 +1,4 @@
-package ua.kpi.dalgorithm;
+package ua.kpi.dalgorithm.signal;
 
 import java.util.ArrayList;
 import java.util.Iterator;

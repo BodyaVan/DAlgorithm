@@ -2,7 +2,7 @@ package ua.kpi.dalgorithm.logic_op;
 
 import org.junit.Before;
 import org.junit.Test;
-import ua.kpi.dalgorithm.Signal;
+import ua.kpi.dalgorithm.signal.Signal;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;

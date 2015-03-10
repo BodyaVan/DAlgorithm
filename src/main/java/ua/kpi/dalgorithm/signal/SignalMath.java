@@ -1,8 +1,8 @@
-package ua.kpi.dalgorithm;
+package ua.kpi.dalgorithm.signal;
 
 import java.util.Arrays;
 
-import static ua.kpi.dalgorithm.Signal.*;
+import static ua.kpi.dalgorithm.signal.Signal.*;
 
 /**
  * Created on 07.03.2015

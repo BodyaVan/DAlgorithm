@@ -1,9 +1,9 @@
 package ua.kpi.dalgorithm.logic_op;
 
-import ua.kpi.dalgorithm.Signal;
-import ua.kpi.dalgorithm.SignalMath;
+import ua.kpi.dalgorithm.signal.Signal;
+import ua.kpi.dalgorithm.signal.SignalMath;
 
-import static ua.kpi.dalgorithm.Signal.ZERO;
+import static ua.kpi.dalgorithm.signal.Signal.ZERO;
 
 /**
  * Created on 07.03.2015

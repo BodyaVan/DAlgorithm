@@ -1,4 +1,4 @@
-package ua.kpi.dalgorithm;
+package ua.kpi.dalgorithm.signal;
 
 import java.io.Serializable;
 
@@ -8,18 +8,20 @@ import java.io.Serializable;
  * @author Bohdan Vanchuhov
  */
 public enum Signal implements Serializable {
-    ZERO('0', 0),
-    ONE('1', 1),
-    D('D', -1),
-    NOT_D('d', -1),
-    UNDEFINED('-', -1);
+    ZERO('0', 0, false),
+    ONE('1', 1, false),
+    D('D', -1, true),
+    NOT_D('d', -1, true),
+    UNDEFINED('-', -1, true);
 
     private char charRepresentation;
     private int intValue;
+    private boolean isFault;
 
-    Signal(char charRepresentation, int intValue) {
+    Signal(char charRepresentation, int intValue, boolean isFault) {
         this.charRepresentation = charRepresentation;
         this.intValue = intValue;
+        this.isFault = isFault;
     }
 
     public static Signal valueOf(char c) {
@@ -43,5 +45,9 @@ public enum Signal implements Serializable {
     @Override
     public String toString() {
         return Character.toString(charRepresentation);
+    }
+
+    public boolean isFault() {
+        return isFault;
     }
 }
