@@ -14,6 +14,13 @@ public class InputComponent implements LogicComponent {
     private Signal output = UNDEFINED;
     private Signal fault = null;
 
+    public InputComponent() {
+    }
+
+    public InputComponent(Signal input) {
+        this.input = input;
+    }
+
     public Signal getInput() {
         return input;
     }
