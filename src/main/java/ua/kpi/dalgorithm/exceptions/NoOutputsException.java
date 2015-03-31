@@ -1,4 +1,4 @@
-package ua.kpi.dalgorithm.automate;
+package ua.kpi.dalgorithm.exceptions;
 
 /**
  * Created on 10.03.2015
