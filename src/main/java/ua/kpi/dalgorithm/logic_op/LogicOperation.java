@@ -2,6 +2,8 @@ package ua.kpi.dalgorithm.logic_op;
 
 import ua.kpi.dalgorithm.signal.Signal;
 
+import java.util.List;
+
 /**
  * Created on 07.03.2015
  *
@@ -10,6 +12,8 @@ import ua.kpi.dalgorithm.signal.Signal;
 public interface LogicOperation {
     int execute(int... inputSignals);
     Signal execute(Signal... inputSignals);
+
+    Signal execute(List<Signal> inputSignals);
 
     /**
      * Returns input signal that has no influence on result

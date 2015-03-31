@@ -3,6 +3,7 @@ package ua.kpi.dalgorithm.logic_op;
 import ua.kpi.dalgorithm.signal.Signal;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created on 07.03.2015
@@ -42,6 +43,12 @@ public abstract class GenericLogicOperation implements LogicOperation {
         return Arrays.stream(inputSignals)
                 .reduce(this::execute)
                 .get();
+    }
+
+    @Override
+    public Signal execute(List<Signal> inputSignals) {
+        Signal[] signalsList = inputSignals.toArray(new Signal[0]);
+        return execute(signalsList);
     }
 
     protected abstract Signal execute(Signal s1, Signal s2);

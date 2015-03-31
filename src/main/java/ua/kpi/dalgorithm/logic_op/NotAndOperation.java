@@ -8,6 +8,6 @@ package ua.kpi.dalgorithm.logic_op;
 public class NotAndOperation extends InvertingLogicOperation {
     @Override
     protected LogicOperation getNotInvertingLogicElement() {
-        return LogicElements.AND;
+        return LogicOperations.AND;
     }
 }

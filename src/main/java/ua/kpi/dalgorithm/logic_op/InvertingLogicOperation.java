@@ -3,6 +3,8 @@ package ua.kpi.dalgorithm.logic_op;
 import ua.kpi.dalgorithm.signal.Signal;
 import ua.kpi.dalgorithm.signal.SignalMath;
 
+import java.util.List;
+
 /**
  * Created on 07.03.2015
  *
@@ -25,6 +27,12 @@ public abstract class InvertingLogicOperation implements LogicOperation {
     public Signal execute(Signal... inputSignals) {
         LogicOperation notInvertingLogicOperation = getNotInvertingLogicElement();
         return inverse(notInvertingLogicOperation.execute(inputSignals));
+    }
+
+    @Override
+    public Signal execute(List<Signal> inputSignals) {
+        Signal[] signalsList = inputSignals.toArray(new Signal[0]);
+        return execute(signalsList);
     }
 
     private Signal inverse(Signal signal) {
