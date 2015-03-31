@@ -5,12 +5,12 @@ package ua.kpi.dalgorithm.logic_op;
  *
  * @author Bohdan Vanchuhov
  */
-public final class LogicElements {
+public final class LogicOperations {
     public static final LogicOperation AND = new AndOperation();
     public static final LogicOperation OR = new OrOperation();
     public static final LogicOperation NOT_AND = new NotAndOperation();
     public static final LogicOperation NOT_OR = new NotOrOperation();
 
-    private LogicElements() {
+    private LogicOperations() {
     }
 }
