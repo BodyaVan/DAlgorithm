@@ -8,17 +8,14 @@ import ua.kpi.dalgorithm.signal.Signal;
  * @author Bohdan Vanchuhov
  */
 public interface LogicComponent {
-    int getInputsQuantity();
-
-    void setInputsQuantity(int inputsQuantity);
-
-    boolean hasFault();
-
-    Signal getFault();
-
-    void setFault(Signal fault);
-
     void execute();
 
     Signal getOutput();
+
+    int getInputsQuantity();
+    void setInputsQuantity(int inputsQuantity);
+
+    boolean hasFault();
+    Signal getFault();
+    void setFault(Signal fault);
 }
