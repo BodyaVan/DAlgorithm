@@ -12,50 +12,50 @@ import static org.hamcrest.Matchers.is;
  * @author Bohdan Vanchuhov
  */
 public class NotOrOperationTest {
-    private LogicOperation orElement;
+    private LogicOperation notOrOperation;
 
     @Before
     public void setUp() throws Exception {
-        orElement = new NotOrOperation();
+        notOrOperation = new NotOrOperation();
     }
 
     @Test
     public void execute_0() throws Exception {
-        assertThat(orElement.execute(1), is(0));
+        assertThat(notOrOperation.execute(1), is(0));
     }
 
     @Test
     public void execute_1() throws Exception {
-        assertThat(orElement.execute(0), is(1));
+        assertThat(notOrOperation.execute(0), is(1));
     }
 
 
     @Test
     public void execute_0_0() throws Exception {
-        int result = orElement.execute(0, 0);
+        int result = notOrOperation.execute(0, 0);
         assertThat(result, is(1));
     }
 
     @Test
      public void execute_0_1() throws Exception {
-        int result = orElement.execute(0, 1);
+        int result = notOrOperation.execute(0, 1);
         assertThat(result, is(0));
     }
 
     @Test
     public void execute_1_0() throws Exception {
-        int result = orElement.execute(1, 0);
+        int result = notOrOperation.execute(1, 0);
         assertThat(result, is(0));
     }
 
     @Test
     public void execute_1_1() throws Exception {
-        int result = orElement.execute(0, 1);
+        int result = notOrOperation.execute(0, 1);
         assertThat(result, is(0));
     }
 
     @Test(expected = IntIsNotSignalException.class)
     public void badInput_100() throws Exception {
-        orElement.execute(100);
+        notOrOperation.execute(100);
     }
 }
