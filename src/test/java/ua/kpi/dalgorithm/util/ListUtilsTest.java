@@ -1,6 +1,5 @@
 package ua.kpi.dalgorithm.util;
 
-import org.hamcrest.Matcher;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -8,10 +7,10 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static ua.kpi.dalgorithm.util.Util.createConstructedList;
-import static ua.kpi.dalgorithm.util.Util.createFilledList;
+import static ua.kpi.dalgorithm.util.ListUtils.createConstructedList;
+import static ua.kpi.dalgorithm.util.ListUtils.createFilledList;
 
-public class UtilTest {
+public class ListUtilsTest {
     @Test
     public void crateConstructedStringArrayList_3argsMethod() throws Exception {
         List<String> list = createConstructedList(5, ArrayList::new, String::new);
@@ -21,7 +20,7 @@ public class UtilTest {
 
     @Test
     public void crateConstructedStringArrayList_2argsMethod() throws Exception {
-        List<String> list = Util.createConstructedList(5, String::new);
+        List<String> list = ListUtils.createConstructedList(5, String::new);
 
         assertThat(list, hasItems("", "", "", "", ""));
     }

@@ -10,8 +10,8 @@ import java.util.function.Supplier;
  *
  * @author Bohdan Vanchuhov
  */
-public final class Util {
-    private Util() {
+public final class ListUtils {
+    private ListUtils() {
     }
 
     public static <E> List<E> createConstructedList(int size, Supplier<List<E>> listFactory, Supplier<E> itemFactory) {
