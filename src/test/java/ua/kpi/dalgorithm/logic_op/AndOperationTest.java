@@ -14,84 +14,112 @@ import static ua.kpi.dalgorithm.signal.Signal.*;
  * @author Bohdan Vanchuhov
  */
 public class AndOperationTest {
-    private LogicOperation andElement;
+    private LogicOperation andOperation;
 
     @Before
     public void setUp() throws Exception {
-        andElement = new AndOperation();
+        andOperation = new AndOperation();
     }
 
     @Test
     public void execute_0() throws Exception {
-        assertThat(andElement.execute(0), is(0));
+        assertThat(andOperation.execute(0), is(0));
     }
 
     @Test
     public void execute_1() throws Exception {
-        assertThat(andElement.execute(1), is(1));
+        assertThat(andOperation.execute(1), is(1));
     }
 
 
     @Test
     public void execute_0_0() throws Exception {
-        int result = andElement.execute(0, 0);
+        int result = andOperation.execute(0, 0);
         assertThat(result, is(0));
     }
 
     @Test
     public void execute_0_1() throws Exception {
-        int result = andElement.execute(0, 1);
+        int result = andOperation.execute(0, 1);
         assertThat(result, is(0));
     }
 
     @Test
     public void execute_1_0() throws Exception {
-        int result = andElement.execute(1, 0);
+        int result = andOperation.execute(1, 0);
         assertThat(result, is(0));
     }
 
     @Test
     public void execute_1_1() throws Exception {
-        int result = andElement.execute(1, 1);
+        int result = andOperation.execute(1, 1);
         assertThat(result, is(1));
     }
 
     @Test
     public void execute_0_0_0() throws Exception {
-        int result = andElement.execute(0, 0, 0);
+        int result = andOperation.execute(0, 0, 0);
         assertThat(result, is(0));
     }
 
     @Test
     public void execute_1_1_1() throws Exception {
-        int result = andElement.execute(1, 1, 1);
+        int result = andOperation.execute(1, 1, 1);
         assertThat(result, is(1));
     }
 
     @Test(expected = IntIsNotSignalException.class)
     public void badInput_100() throws Exception {
-        andElement.execute(100);
+        andOperation.execute(100);
     }
 
     @Test(expected = IntIsNotSignalException.class)
     public void badInput_m1_0() throws Exception {
-        andElement.execute(-1, 0);
+        andOperation.execute(-1, 0);
     }
 
     @Test(expected = IntIsNotSignalException.class)
     public void badInput_10_0() throws Exception {
-        andElement.execute(10, 0);
+        andOperation.execute(10, 0);
     }
+
+    // ----- Signal Input -----
 
     @Test
     public void execute_signalInput_0_1() throws Exception {
-        Signal result = andElement.execute(ZERO, ONE);
+        Signal result = andOperation.execute(ZERO, ONE);
         assertThat(result, is(ZERO));
     }
 
     @Test
     public void execute_signalInput_1_0_1() throws Exception {
-        Signal result = andElement.execute(ONE, ZERO, ONE);
+        Signal result = andOperation.execute(ONE, ZERO, ONE);
         assertThat(result, is(ZERO));
+    }
+
+    //----- With UNDEFINED -----
+
+    @Test
+    public void execute_signalInput_0_U() throws Exception {
+        Signal result = andOperation.execute(ZERO, UNDEFINED);
+        assertThat(result, is(ZERO));
+    }
+
+    @Test
+    public void execute_signalInput_U_1() throws Exception {
+        Signal result = andOperation.execute(UNDEFINED, ONE);
+        assertThat(result, is(UNDEFINED));
+    }
+
+    @Test
+    public void execute_signalInput_0_U_1() throws Exception {
+        Signal result = andOperation.execute(ZERO, UNDEFINED, ONE);
+        assertThat(result, is(ZERO));
+    }
+
+    @Test
+    public void execute_signalInput_U_U() throws Exception {
+        Signal result = andOperation.execute(UNDEFINED, UNDEFINED);
+        assertThat(result, is(UNDEFINED));
     }
 }

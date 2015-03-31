@@ -13,15 +13,21 @@ public final class SignalMath {
     private SignalMath() {}
 
     public static Signal and(Signal s1, Signal s2) {
-        if (s1 == ZERO || s2 == ZERO) {
+        if (anyMatch(ZERO, s1, s2)) {
             return ZERO;
+        }
+        if (anyMatch(UNDEFINED, s1, s2)) {
+            return UNDEFINED;
         }
         return ONE;
     }
 
     public static Signal or(Signal s1, Signal s2) {
-        if (s1 == ONE || s2 == ONE) {
+        if (anyMatch(ONE, s1, s2)) {
             return ONE;
+        }
+        if (anyMatch(UNDEFINED, s1, s2)) {
+            return UNDEFINED;
         }
         return ZERO;
     }
@@ -46,5 +52,9 @@ public final class SignalMath {
 
     private static boolean anyMatch(Signal expected, Signal... signals) {
         return Arrays.stream(signals).anyMatch(s -> s == expected);
+    }
+
+    private static boolean allMatch(Signal expected, Signal... signals) {
+        return Arrays.stream(signals).allMatch(s -> s == expected);
     }
 }

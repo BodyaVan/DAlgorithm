@@ -6,6 +6,9 @@ import ua.kpi.dalgorithm.signal.Signal;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static ua.kpi.dalgorithm.signal.Signal.ONE;
+import static ua.kpi.dalgorithm.signal.Signal.UNDEFINED;
+import static ua.kpi.dalgorithm.signal.Signal.ZERO;
 
 /**
  * Created on 07.03.2015
@@ -13,62 +16,90 @@ import static org.hamcrest.Matchers.is;
  * @author Bohdan Vanchuhov
  */
 public class OrOperationTest {
-    private LogicOperation orElement;
+    private LogicOperation orOperation;
 
     @Before
     public void setUp() throws Exception {
-        orElement = new OrOperation();
+        orOperation = new OrOperation();
     }
 
     @Test
     public void execute_0() throws Exception {
-        assertThat(orElement.execute(0), is(0));
+        assertThat(orOperation.execute(0), is(0));
     }
 
     @Test
     public void execute_1() throws Exception {
-        assertThat(orElement.execute(1), is(1));
+        assertThat(orOperation.execute(1), is(1));
     }
 
 
     @Test
     public void execute_0_0() throws Exception {
-        int result = orElement.execute(0, 0);
+        int result = orOperation.execute(0, 0);
         assertThat(result, is(0));
     }
 
     @Test
      public void execute_0_1() throws Exception {
-        int result = orElement.execute(0, 1);
+        int result = orOperation.execute(0, 1);
         assertThat(result, is(1));
     }
 
     @Test
     public void execute_1_0() throws Exception {
-        int result = orElement.execute(1, 0);
+        int result = orOperation.execute(1, 0);
         assertThat(result, is(1));
     }
 
     @Test
     public void execute_1_1() throws Exception {
-        int result = orElement.execute(0, 1);
+        int result = orOperation.execute(0, 1);
         assertThat(result, is(1));
     }
 
     @Test(expected = IntIsNotSignalException.class)
     public void badInput_100() throws Exception {
-        orElement.execute(100);
+        orOperation.execute(100);
     }
+
+    // ----- Signal Input -----
 
     @Test
     public void execute_signalInput_0_1() throws Exception {
-        Signal result = orElement.execute(Signal.ZERO, Signal.ONE);
-        assertThat(result, is(Signal.ONE));
+        Signal result = orOperation.execute(ZERO, ONE);
+        assertThat(result, is(ONE));
     }
 
     @Test
     public void execute_signalInput_1_0_1() throws Exception {
-        Signal result = orElement.execute(Signal.ONE, Signal.ZERO, Signal.ONE);
-        assertThat(result, is(Signal.ONE));
+        Signal result = orOperation.execute(ONE, ZERO, ONE);
+        assertThat(result, is(ONE));
+    }
+
+    //----- With UNDEFINED -----
+
+    @Test
+    public void execute_signalInput_0_U() throws Exception {
+        Signal result = orOperation.execute(ZERO, UNDEFINED);
+        assertThat(result, is(UNDEFINED));
+    }
+
+    @Test
+    public void execute_signalInput_U_0() throws Exception {
+        Signal result = orOperation.execute(UNDEFINED, ZERO);
+        assertThat(result, is(UNDEFINED));
+    }
+
+    @Test
+    public void execute_signalInput_0_U_1() throws Exception {
+        Signal result = orOperation.execute(ZERO, UNDEFINED, ONE);
+        assertThat(result, is(ONE));
+    }
+
+    @Test
+    public void execute_signalInput_U_U() throws Exception {
+        Signal result = orOperation.execute(UNDEFINED, UNDEFINED);
+        assertThat(result, is(UNDEFINED));
     }
 }
