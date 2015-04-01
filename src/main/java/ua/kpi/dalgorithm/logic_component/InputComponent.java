@@ -10,9 +10,10 @@ import static ua.kpi.dalgorithm.signal.Signal.UNDEFINED;
  * @author Bohdan Vanchuhov
  */
 public class InputComponent implements LogicComponent {
+    private int index;
+
     private Signal input = UNDEFINED;
     private Signal output = UNDEFINED;
-    private Signal fault = null;
 
     public InputComponent() {
     }
@@ -30,11 +31,7 @@ public class InputComponent implements LogicComponent {
     }
 
     public void execute() {
-        if (hasFault()) {
-            output = fault;
-        } else {
-            output = input;
-        }
+        output = input;
     }
 
     public Signal getOutput() {
@@ -52,26 +49,12 @@ public class InputComponent implements LogicComponent {
     }
 
     @Override
-    public boolean hasFault() {
-        return fault != null;
+    public int getIndex() {
+        return index;
     }
 
     @Override
-    public Signal getFault() {
-        return fault;
-    }
-
-    @Override
-    public void setFault(Signal signal) {
-        checkIsFault(signal);
-        this.fault = signal;
-    }
-
-    private void checkIsFault(Signal signal) {
-        if (!signal.isFault()) {
-            throw new IllegalArgumentException(
-                    String.format("The signal %s is not fault", signal)
-            );
-        }
+    public void setIndex(int index) {
+        this.index = index;
     }
 }

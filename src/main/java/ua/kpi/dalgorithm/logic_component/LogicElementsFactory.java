@@ -12,34 +12,34 @@ public final class LogicElementsFactory {
     }
 
     public static LogicElement createAndLogicElement() {
-        return new LogicElement(LogicOperations.AND);
+        return new LogicElementImpl(LogicOperations.AND);
     }
 
     public static LogicElement createOrLogicElement() {
-        return new LogicElement(LogicOperations.OR);
+        return new LogicElementImpl(LogicOperations.OR);
     }
 
     public static LogicElement createNotAndLogicElement() {
-        return new LogicElement(LogicOperations.NOT_AND);
+        return new LogicElementImpl(LogicOperations.NOT_AND);
     }
 
     public static LogicElement createNotOrLogicElement() {
-        return new LogicElement(LogicOperations.NOT_OR);
+        return new LogicElementImpl(LogicOperations.NOT_OR);
     }
 
     public static LogicElement createAndLogicElement(int inputsQuantity) {
-        return new LogicElement(LogicOperations.AND, inputsQuantity);
+        return new LogicElementImpl(LogicOperations.AND, inputsQuantity);
     }
 
     public static LogicElement createOrLogicElement(int inputsQuantity) {
-        return new LogicElement(LogicOperations.OR, inputsQuantity);
+        return new LogicElementImpl(LogicOperations.OR, inputsQuantity);
     }
 
     public static LogicElement createNotAndLogicElement(int inputsQuantity) {
-        return new LogicElement(LogicOperations.NOT_AND, inputsQuantity);
+        return new LogicElementImpl(LogicOperations.NOT_AND, inputsQuantity);
     }
 
     public static LogicElement createNotOrLogicElement(int inputsQuantity) {
-        return new LogicElement(LogicOperations.NOT_OR, inputsQuantity);
+        return new LogicElementImpl(LogicOperations.NOT_OR, inputsQuantity);
     }
 }
