@@ -6,9 +6,7 @@ import ua.kpi.dalgorithm.signal.Signal;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static ua.kpi.dalgorithm.signal.Signal.ONE;
-import static ua.kpi.dalgorithm.signal.Signal.UNDEFINED;
-import static ua.kpi.dalgorithm.signal.Signal.ZERO;
+import static ua.kpi.dalgorithm.signal.Signal.*;
 
 /**
  * Created on 07.03.2015
@@ -101,5 +99,37 @@ public class OrOperationTest {
     public void execute_signalInput_U_U() throws Exception {
         Signal result = orOperation.execute(UNDEFINED, UNDEFINED);
         assertThat(result, is(UNDEFINED));
+    }
+
+    // ----- With D and notD -----
+
+    @Test
+    public void execute_signalInput_0_D() throws Exception {
+        Signal result = orOperation.execute(ZERO, D);
+        assertThat(result, is(D));
+    }
+
+    @Test
+    public void execute_signalInput_d_0() throws Exception {
+        Signal result = orOperation.execute(NOT_D, ZERO);
+        assertThat(result, is(NOT_D));
+    }
+
+    @Test
+    public void execute_signalInput_d_D() throws Exception {
+        Signal result = orOperation.execute(NOT_D, D);
+        assertThat(result, is(UNDEFINED));
+    }
+
+    @Test
+    public void execute_signalInput_D_d_1() throws Exception {
+        Signal result = orOperation.execute(D, NOT_D, ONE);
+        assertThat(result, is(ONE));
+    }
+
+    @Test
+    public void execute_signalInput_d_d_0() throws Exception {
+        Signal result = orOperation.execute(D, D, ZERO);
+        assertThat(result, is(D));
     }
 }

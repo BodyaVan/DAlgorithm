@@ -10,32 +10,39 @@ import static ua.kpi.dalgorithm.signal.Signal.*;
  * @author Bohdan Vanchuhov
  */
 public final class SignalMath {
-    private SignalMath() {}
+    private SignalMath() {
+    }
 
     public static Signal and(Signal s1, Signal s2) {
-        if (anyMatch(ZERO, s1, s2)) {
-            return ZERO;
-        }
-        if (anyMatch(UNDEFINED, s1, s2)) {
-            return UNDEFINED;
-        }
+        if (anyMatch(ZERO, s1, s2)) return ZERO;
+        if (anyMatch(UNDEFINED, s1, s2)) return UNDEFINED;
+
+        boolean dExists = anyMatch(D, s1, s2);
+        boolean notDExists = anyMatch(NOT_D, s1, s2);
+
+        if (dExists && notDExists) return UNDEFINED;
+        if (dExists) return D;
+        if (notDExists) return NOT_D;
+
         return ONE;
     }
 
     public static Signal or(Signal s1, Signal s2) {
-        if (anyMatch(ONE, s1, s2)) {
-            return ONE;
-        }
-        if (anyMatch(UNDEFINED, s1, s2)) {
-            return UNDEFINED;
-        }
+        if (anyMatch(ONE, s1, s2)) return ONE;
+        if (anyMatch(UNDEFINED, s1, s2)) return UNDEFINED;
+
+        boolean dExists = anyMatch(D, s1, s2);
+        boolean notDExists = anyMatch(NOT_D, s1, s2);
+
+        if (dExists && notDExists) return UNDEFINED;
+        if (dExists) return D;
+        if (notDExists) return NOT_D;
+
         return ZERO;
     }
 
     public static Signal not(Signal s) {
-        if (s == ZERO) {
-            return ONE;
-        }
+        if (s == ZERO) return ONE;
         return ZERO;
     }
 

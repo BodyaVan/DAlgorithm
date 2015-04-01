@@ -122,4 +122,36 @@ public class AndOperationTest {
         Signal result = andOperation.execute(UNDEFINED, UNDEFINED);
         assertThat(result, is(UNDEFINED));
     }
+
+    // ----- With D and notD -----
+
+    @Test
+    public void execute_signalInput_1_D() throws Exception {
+        Signal result = andOperation.execute(ONE, D);
+        assertThat(result, is(D));
+    }
+
+    @Test
+    public void execute_signalInput_d_1() throws Exception {
+        Signal result = andOperation.execute(NOT_D, ONE);
+        assertThat(result, is(NOT_D));
+    }
+
+    @Test
+    public void execute_signalInput_d_D() throws Exception {
+        Signal result = andOperation.execute(NOT_D, D);
+        assertThat(result, is(UNDEFINED));
+    }
+
+    @Test
+    public void execute_signalInput_D_d_0() throws Exception {
+        Signal result = andOperation.execute(D, NOT_D, ZERO);
+        assertThat(result, is(ZERO));
+    }
+
+    @Test
+    public void execute_signalInput_d_d_1() throws Exception {
+        Signal result = andOperation.execute(D, D, ONE);
+        assertThat(result, is(D));
+    }
 }
