@@ -1,4 +1,4 @@
-package ua.kpi.dalgorithm.logic_elem;
+package ua.kpi.dalgorithm.logic_component;
 
 import org.apache.commons.collections4.ListUtils;
 import ua.kpi.dalgorithm.exceptions.NoMoreInputException;

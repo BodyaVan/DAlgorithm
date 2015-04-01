@@ -1,4 +1,4 @@
-package ua.kpi.dalgorithm.logic_elem;
+package ua.kpi.dalgorithm.logic_component;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -1,6 +1,5 @@
-package ua.kpi.dalgorithm.logic_elem;
+package ua.kpi.dalgorithm.logic_component;
 
-import ua.kpi.dalgorithm.logic_op.LogicOperation;
 import ua.kpi.dalgorithm.logic_op.LogicOperations;
 
 /**

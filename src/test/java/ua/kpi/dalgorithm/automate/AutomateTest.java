@@ -3,12 +3,12 @@ package ua.kpi.dalgorithm.automate;
 import org.junit.Before;
 import org.junit.Test;
 import ua.kpi.dalgorithm.exceptions.NoOutputsException;
-import ua.kpi.dalgorithm.logic_elem.LogicElement;
+import ua.kpi.dalgorithm.logic_component.LogicElement;
 import ua.kpi.dalgorithm.signal.Signal;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static ua.kpi.dalgorithm.logic_elem.LogicElementsFactory.*;
+import static ua.kpi.dalgorithm.logic_component.LogicElementsFactory.*;
 import static ua.kpi.dalgorithm.signal.Signal.*;
 
 /**

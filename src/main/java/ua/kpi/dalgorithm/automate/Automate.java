@@ -1,9 +1,9 @@
 package ua.kpi.dalgorithm.automate;
 
 import ua.kpi.dalgorithm.exceptions.NoOutputsException;
-import ua.kpi.dalgorithm.logic_elem.InputComponent;
-import ua.kpi.dalgorithm.logic_elem.LogicComponent;
-import ua.kpi.dalgorithm.logic_elem.LogicElement;
+import ua.kpi.dalgorithm.logic_component.InputComponent;
+import ua.kpi.dalgorithm.logic_component.LogicComponent;
+import ua.kpi.dalgorithm.logic_component.LogicElement;
 import ua.kpi.dalgorithm.signal.Signal;
 import ua.kpi.dalgorithm.util.ListUtils;
 

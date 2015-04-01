@@ -1,4 +1,4 @@
-package ua.kpi.dalgorithm.logic_elem;
+package ua.kpi.dalgorithm.logic_component;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -6,9 +6,7 @@ import ua.kpi.dalgorithm.exceptions.NoMoreInputException;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static ua.kpi.dalgorithm.signal.Signal.ONE;
-import static ua.kpi.dalgorithm.signal.Signal.UNDEFINED;
-import static ua.kpi.dalgorithm.signal.Signal.ZERO;
+import static ua.kpi.dalgorithm.signal.Signal.*;
 
 /**
  * Created on 30.03.2015

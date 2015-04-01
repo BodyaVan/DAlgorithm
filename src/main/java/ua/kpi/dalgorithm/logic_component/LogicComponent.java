@@ -1,4 +1,4 @@
-package ua.kpi.dalgorithm.logic_elem;
+package ua.kpi.dalgorithm.logic_component;
 
 import ua.kpi.dalgorithm.signal.Signal;
 
