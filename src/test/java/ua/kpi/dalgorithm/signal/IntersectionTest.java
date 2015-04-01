@@ -1,7 +1,6 @@
 package ua.kpi.dalgorithm.signal;
 
 import org.junit.Test;
-import ua.kpi.dalgorithm.signal.SignalMath;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -66,5 +65,13 @@ public class IntersectionTest {
     @Test
     public void test_0_1() throws Exception {
         assertThat(intersection(ZERO, ONE), is(NOT_D));
+    }
+
+    //--------------------------------------------------
+
+
+    @Test
+    public void test_U_d() throws Exception {
+        assertThat(intersection(UNDEFINED, D), is(D));
     }
 }

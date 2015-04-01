@@ -58,7 +58,9 @@ public final class SignalMath {
         if (anyMatch(ZERO, s1, s2)) return ZERO;
         if (anyMatch(ONE, s1, s2)) return ONE;
 
-        return UNDEFINED;
+        if (allMatch(UNDEFINED, s1, s2)) return UNDEFINED;
+        if (s1 == UNDEFINED) return s2;
+        return s1;
     }
 
     private static boolean anyMatch(Signal expected, Signal... signals) {
