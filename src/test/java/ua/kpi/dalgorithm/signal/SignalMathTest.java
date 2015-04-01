@@ -1,4 +1,4 @@
-package ua.kpi.dalgorithm;
+package ua.kpi.dalgorithm.signal;
 
 import org.junit.Test;
 import ua.kpi.dalgorithm.signal.SignalMath;
