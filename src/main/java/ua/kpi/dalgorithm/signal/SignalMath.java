@@ -43,7 +43,11 @@ public final class SignalMath {
 
     public static Signal not(Signal s) {
         if (s == ZERO) return ONE;
-        return ZERO;
+        if (s == ONE) return ZERO;
+        if (s == D) return NOT_D;
+        if (s == NOT_D) return D;
+
+        return UNDEFINED;
     }
 
     public static Signal intersection(Signal s1, Signal s2) {
