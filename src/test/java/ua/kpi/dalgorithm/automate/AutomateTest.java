@@ -26,9 +26,8 @@ public class AutomateTest {
 
     @Test
     public void createEmptyAutomate_1output_execute_getOutput() throws Exception {
-        automate.setOutputsQuantity(1);
-
-        automate.execute();
+        automate.setOutputsQuantity(1)
+                .execute();
 
         assertThat(automate.getOutput(0), is(UNDEFINED));
     }
@@ -47,11 +46,11 @@ public class AutomateTest {
 
     @Test
     public void automateWith1OrElement() throws Exception {
-        automate.setInputsQuantity(2);
-        automate.setOutputsQuantity(1);
+        automate.setInputsQuantity(2)
+                .setOutputsQuantity(1);
 
         LogicElement orLogicElement = createOrLogicElement(2);
-        int logicElementIndex = automate.addLogicElement(orLogicElement);
+        int logicElementIndex = automate.addElement(orLogicElement);
 
         automate.bindInput(0, logicElementIndex)
                 .bindInput(1, logicElementIndex)
@@ -68,13 +67,13 @@ public class AutomateTest {
 
     @Test
     public void automateWith3Elements() throws Exception {
-        automate.setInputsQuantity(4);
-        automate.setOutputsQuantity(1);
+        automate.setInputsQuantity(4)
+                .setOutputsQuantity(1);
 
         int[] elementIndexes = {
-                automate.addLogicElement(createOrLogicElement(2)),
-                automate.addLogicElement(createNotOrLogicElement(2)),
-                automate.addLogicElement(createAndLogicElement(2))
+                automate.addElement(createOrLogicElement(2)),
+                automate.addElement(createNotOrLogicElement(2)),
+                automate.addElement(createAndLogicElement(2))
         };
 
         automate.bindInput(0, elementIndexes[0])
@@ -84,8 +83,8 @@ public class AutomateTest {
 
                 .bindOutput(0, elementIndexes[2])
 
-                .bindLogicElements(elementIndexes[0], elementIndexes[2])
-                .bindLogicElements(elementIndexes[1], elementIndexes[2])
+                .bindElements(elementIndexes[0], elementIndexes[2])
+                .bindElements(elementIndexes[1], elementIndexes[2])
 
                 .setInput(0, ZERO)
                 .setInput(1, ONE)
@@ -95,5 +94,41 @@ public class AutomateTest {
                 .execute();
 
         assertThat(automate.getOutput(0), is(ZERO));
+    }
+
+    @Test
+    public void automateWith3Elements_addingByName() throws Exception {
+        automate.setInputsQuantity(4)
+                .setOutputsQuantity(1)
+
+                .setInputName(0, "a")
+                .setInputName(1, "b")
+                .setInputName(2, "c")
+                .setInputName(3, "d")
+
+                .setOutputName(0, "y")
+
+                .addElement(createOrLogicElement(2), "0")
+                .addElement(createNotOrLogicElement(2), "1")
+                .addElement(createAndLogicElement(2), "2")
+
+                .bindInput("a", "0")
+                .bindInput("b", "0")
+                .bindInput("c", "1")
+                .bindInput("d", "1")
+
+                .bindOutput("y", "2")
+
+                .bindElements("0", "2")
+                .bindElements("1", "2")
+
+                .setInput("a", ZERO)
+                .setInput("b", ONE)
+                .setInput("c", ZERO)
+                .setInput("d", ONE)
+
+                .execute();
+
+        assertThat(automate.getOutput("y"), is(ZERO));
     }
 }

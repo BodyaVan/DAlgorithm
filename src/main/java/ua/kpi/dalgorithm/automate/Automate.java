@@ -1,14 +1,13 @@
 package ua.kpi.dalgorithm.automate;
 
+import com.sun.istack.internal.NotNull;
 import ua.kpi.dalgorithm.exceptions.NoOutputsException;
 import ua.kpi.dalgorithm.logic_component.InputComponent;
 import ua.kpi.dalgorithm.logic_component.LogicComponent;
 import ua.kpi.dalgorithm.logic_component.LogicElement;
 import ua.kpi.dalgorithm.signal.Signal;
-import ua.kpi.dalgorithm.util.ListUtils;
 
-import java.util.ArrayList;
-import java.util.List;
+import static ua.kpi.dalgorithm.exceptions.ExceptionMessages.NO_OUTPUT;
 
 /**
  * Created on 10.03.2015
@@ -16,10 +15,9 @@ import java.util.List;
  * @author Bohdan Vanchuhov
  */
 public class Automate {
-    private List<InputComponent> inputs;
-    private List<LogicComponent> outputs;
-
-    private List<LogicElement> logicElements = new ArrayList<>();
+    private NamedList<InputComponent> inputs = new NamedList<>(InputComponent::new);
+    private NamedList<LogicElement> elements = new NamedList<>();
+    private NamedList<LogicComponent> outputs = new NamedList<>();
 
     public Automate() {
     }
@@ -30,24 +28,28 @@ public class Automate {
     }
 
     public int getInputsQuantity() {
-        return inputs.size();
+        return inputs.getSize();
     }
 
-    public void setInputsQuantity(int inputsQuantity) {
-        inputs = org.apache.commons.collections4.ListUtils.fixedSizeList(
-                ListUtils.createConstructedList(inputsQuantity, InputComponent::new));
+    public Automate setInputsQuantity(int inputsQuantity) {
+        inputs.setSize(inputsQuantity);
+        return this;
     }
 
     public int getOutputsQuantity() {
-        return outputs.size();
+        return outputs.getSize();
     }
 
-    public void setOutputsQuantity(int outputsQuantity) {
-        outputs = org.apache.commons.collections4.ListUtils.fixedSizeList(
-                ListUtils.createFilledList(outputsQuantity, null));
+    public Automate setOutputsQuantity(int outputsQuantity) {
+        outputs.setSize(outputsQuantity);
+        return this;
     }
 
-    public void execute() {
+    public int getLogicElementsQuantity() {
+        return elements.getSize();
+    }
+
+    public Automate execute() {
         checkOutputs();
 
         for (LogicComponent output : outputs) {
@@ -55,37 +57,74 @@ public class Automate {
                 output.execute();
             }
         }
+
+        return this;
     }
 
     private void checkOutputs() {
-        if (outputs == null || outputs.isEmpty()) {
-            throw new NoOutputsException("Outputs are not existed");
+        if (outputs.isEmpty()) {
+            throw new NoOutputsException(NO_OUTPUT);
         }
     }
 
-    public Signal getOutput(int outputIndex) {
-        LogicComponent output = outputs.get(outputIndex);
+    //--------------------------------------------------
+
+    public LogicElement getElement(int index) {
+        return elements.get(index);
+    }
+
+    public LogicElement getElement(String name) {
+        return elements.get(name);
+    }
+
+    public Signal getOutput(int index) {
+        LogicComponent output = outputs.get(index);
 
         return output == null ? Signal.UNDEFINED : output.getOutput();
     }
 
-    public int addLogicElement(LogicElement logicElement) {
-        logicElements.add(logicElement);
+    public Signal getOutput(String outputName) {
+        int index = outputs.getIndexByName(outputName);
+
+        return getOutput(index);
+    }
+
+    //--------------------------------------------------
+
+    public int addElement(@NotNull LogicElement logicElement) {
+        elements.add(logicElement);
 
         return getLogicElementsQuantity() - 1;
     }
 
-    public int getLogicElementsQuantity() {
-        return logicElements.size();
+    public Automate addElement(@NotNull LogicElement element, String elementName) {
+        elements.add(element, elementName);
+
+        return this;
     }
 
-    public LogicElement getLogicElement(int index) {
-        return logicElements.get(index);
+    //--------------------------------------------------
+
+    public Automate setInputName(int index, String name) {
+        inputs.setName(index, name);
+        return this;
     }
 
-    public Automate bindInput(int inputIndex, int logicElementIndex) {
+    public Automate setElementName(int index, String name) {
+        elements.setName(index, name);
+        return this;
+    }
+
+    public Automate setOutputName(int index, String name) {
+        outputs.setName(index, name);
+        return this;
+    }
+
+    //--------------------------------------------------
+
+    public Automate bindInput(int inputIndex, int elementIndex) {
         InputComponent inputComponent = getInputComponent(inputIndex);
-        LogicElement logicElement = getLogicElement(logicElementIndex);
+        LogicElement logicElement = getElement(elementIndex);
 
         logicElement.addInput(inputComponent);
 
@@ -96,39 +135,68 @@ public class Automate {
         return inputs.get(index);
     }
 
-    public Automate bindOutput(int outputIndex, int elementIndex) {
-        LogicElement logicElement = getLogicElement(elementIndex);
+    public Automate bindInput(String inputName, String elementName) {
+        InputComponent inputComponent = inputs.get(inputName);
+        LogicElement element = elements.get(elementName);
 
+        element.addInput(inputComponent);
+
+        return this;
+    }
+
+    public Automate bindElements(int outElementIndex, int inElementIndex) {
+        LogicElement outElement = elements.get(outElementIndex);
+        LogicElement inElement = elements.get(inElementIndex);
+
+        bindElements(inElement, outElement);
+
+        return this;
+    }
+
+    public Automate bindElements(String outElementName, String inElementName) {
+        LogicElement outElement = elements.get(outElementName);
+        LogicElement inElement = elements.get(inElementName);
+
+        bindElements(inElement, outElement);
+
+        return this;
+    }
+
+    private void bindElements(LogicElement inElement, LogicElement outElement) {
+        inElement.addInput(outElement);
+    }
+
+    public Automate bindOutput(int outputIndex, int elementIndex) {
+        LogicElement logicElement = getElement(elementIndex);
         outputs.set(outputIndex, logicElement);
 
         return this;
     }
 
+    public Automate bindOutput(String outputName, String elementName) {
+        LogicElement element = elements.get(elementName);
+        outputs.set(outputName, element);
+
+        return this;
+    }
+
+    //--------------------------------------------------
+
     public Automate setInput(int inputIndex, Signal signal) {
         InputComponent inputComponent = getInputComponent(inputIndex);
+        setInput(inputComponent, signal);
+
+        return this;
+    }
+
+    public Automate setInput(String inputName, Signal signal) {
+        InputComponent inputComponent = inputs.get(inputName);
+        setInput(inputComponent, signal);
+
+        return this;
+    }
+
+    private void setInput(InputComponent inputComponent, Signal signal) {
         inputComponent.setInput(signal);
-
-        return this;
-    }
-
-    public Automate bindLogicElements(int outElementIndex, int inElementIndex) {
-        checkElementIndex(outElementIndex);
-        checkElementIndex(inElementIndex);
-
-        LogicElement outElement = logicElements.get(outElementIndex);
-        LogicElement inElement = logicElements.get(inElementIndex);
-
-        inElement.addInput(outElement);
-
-        return this;
-    }
-
-    private void checkElementIndex(int elementIndex) {
-        if (elementIndex < 0 && elementIndex >= logicElements.size()) {
-            throw new ArrayIndexOutOfBoundsException(String.format(
-                    "Element index should be in the range [0, %d], but actually is",
-                    logicElements.size() - 1,
-                    elementIndex));
-        }
     }
 }
