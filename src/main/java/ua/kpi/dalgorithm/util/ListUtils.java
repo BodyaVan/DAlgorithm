@@ -1,7 +1,6 @@
 package ua.kpi.dalgorithm.util;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -30,13 +29,7 @@ public final class ListUtils {
     }
 
     public static <E> List<E> createFilledList(int size, Supplier<List<E>> listFactory, E filler) {
-        List<E> resultList = listFactory.get();
-
-        for (int i = 0; i < size; i++) {
-            resultList.add(filler);
-        }
-
-        return resultList;
+        return createConstructedList(size, listFactory, () -> filler);
     }
 
     public static <E> List<E> createFilledList(int size, E filler) {
