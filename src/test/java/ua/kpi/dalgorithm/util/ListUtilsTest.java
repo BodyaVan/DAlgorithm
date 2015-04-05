@@ -3,12 +3,13 @@ package ua.kpi.dalgorithm.util;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-import static ua.kpi.dalgorithm.util.ListUtils.createConstructedList;
-import static ua.kpi.dalgorithm.util.ListUtils.createFilledList;
+import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.nullValue;
+import static ua.kpi.dalgorithm.util.ListUtils.*;
 
 public class ListUtilsTest {
     @Test
@@ -39,5 +40,18 @@ public class ListUtilsTest {
         List<Integer> list = createFilledList(5, ArrayList::new, null);
 
         assertThat(list, hasItems(nullValue(), nullValue(), nullValue(), nullValue(), nullValue()));
+    }
+
+    //--------------------------------------------------
+
+
+    @Test
+    public void testUnion() throws Exception {
+        List<String> list = union(
+                Arrays.asList("a", "b"),
+                Arrays.asList("c", "d")
+        );
+
+        assertThat(list, hasItems("a", "b", "c", "d"));
     }
 }
