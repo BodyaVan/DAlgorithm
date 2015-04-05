@@ -7,6 +7,8 @@ import ua.kpi.dalgorithm.logic_component.LogicComponent;
 import ua.kpi.dalgorithm.logic_component.LogicElement;
 import ua.kpi.dalgorithm.signal.Signal;
 
+import java.util.List;
+
 import static ua.kpi.dalgorithm.exceptions.ExceptionMessages.NO_OUTPUT;
 
 /**
@@ -15,8 +17,8 @@ import static ua.kpi.dalgorithm.exceptions.ExceptionMessages.NO_OUTPUT;
  * @author Bohdan Vanchuhov
  */
 public class Automate {
-    private NamedList<InputComponent> inputs = new NamedList<>(InputComponent::new);
-    private NamedList<LogicElement> elements = new NamedList<>();
+    private IdentifiableNamedList<InputComponent> inputs = new IdentifiableNamedList<>(InputComponent::new);
+    private IdentifiableNamedList<LogicElement> elements = new IdentifiableNamedList<>();
     private NamedList<LogicComponent> outputs = new NamedList<>();
 
     public Automate() {
@@ -45,7 +47,7 @@ public class Automate {
         return this;
     }
 
-    public int getLogicElementsQuantity() {
+    public int getElementsQuantity() {
         return elements.getSize();
     }
 
@@ -94,7 +96,7 @@ public class Automate {
     public int addElement(@NotNull LogicElement logicElement) {
         elements.add(logicElement);
 
-        return getLogicElementsQuantity() - 1;
+        return getElementsQuantity() - 1;
     }
 
     public Automate addElement(@NotNull LogicElement element, String elementName) {
@@ -198,5 +200,33 @@ public class Automate {
 
     private void setInput(InputComponent inputComponent, Signal signal) {
         inputComponent.setInput(signal);
+    }
+
+    //--------------------------------------------------
+
+    public List<InputComponent> getInputs() {
+        return inputs.getItems();
+    }
+
+    public List<LogicElement> getElements() {
+        return elements.getItems();
+    }
+
+    public List<LogicComponent> getOutputs() {
+        return outputs.getItems();
+    }
+
+    //--------------------------------------------------
+
+    public List<String> getInputNames() {
+        return inputs.getNames();
+    }
+
+    public List<String> getElementNames() {
+        return elements.getNames();
+    }
+
+    public List<String> getOutputNames() {
+        return outputs.getNames();
     }
 }

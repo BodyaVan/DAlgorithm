@@ -6,6 +6,7 @@ import ua.kpi.dalgorithm.exceptions.NoOutputsException;
 import ua.kpi.dalgorithm.logic_component.LogicElement;
 import ua.kpi.dalgorithm.signal.Signal;
 
+import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static ua.kpi.dalgorithm.logic_component.LogicElementsFactory.*;
@@ -66,26 +67,10 @@ public class AutomateTest {
     }
 
     @Test
-    public void automateWith3Elements() throws Exception {
-        automate.setInputsQuantity(4)
-                .setOutputsQuantity(1);
+    public void automateWith3Elements_addingByNames() throws Exception {
+        automate = generateAutomate_addingByIndexes();
 
-        int[] elementIndexes = {
-                automate.addElement(createOrLogicElement(2)),
-                automate.addElement(createNotOrLogicElement(2)),
-                automate.addElement(createAndLogicElement(2))
-        };
-
-        automate.bindInput(0, elementIndexes[0])
-                .bindInput(1, elementIndexes[0])
-                .bindInput(2, elementIndexes[1])
-                .bindInput(3, elementIndexes[1])
-
-                .bindOutput(0, elementIndexes[2])
-
-                .bindElements(elementIndexes[0], elementIndexes[2])
-                .bindElements(elementIndexes[1], elementIndexes[2])
-
+        automate
                 .setInput(0, ZERO)
                 .setInput(1, ONE)
                 .setInput(2, ZERO)
@@ -96,9 +81,52 @@ public class AutomateTest {
         assertThat(automate.getOutput(0), is(ZERO));
     }
 
+    private Automate generateAutomate_addingByIndexes() {
+        Automate resultAutomate = new Automate();
+
+        resultAutomate.setInputsQuantity(4)
+                .setOutputsQuantity(1);
+
+        int[] elementIndexes = {
+                resultAutomate.addElement(createOrLogicElement(2)),
+                resultAutomate.addElement(createNotOrLogicElement(2)),
+                resultAutomate.addElement(createAndLogicElement(2))
+        };
+
+        resultAutomate
+                .bindInput(0, elementIndexes[0])
+                .bindInput(1, elementIndexes[0])
+                .bindInput(2, elementIndexes[1])
+                .bindInput(3, elementIndexes[1])
+
+                .bindOutput(0, elementIndexes[2])
+
+                .bindElements(elementIndexes[0], elementIndexes[2])
+                .bindElements(elementIndexes[1], elementIndexes[2]);
+
+        return resultAutomate;
+    }
+
     @Test
     public void automateWith3Elements_addingByName() throws Exception {
-        automate.setInputsQuantity(4)
+        automate = generateAutomate_addingByNames();
+
+        automate
+                .setInput("a", ZERO)
+                .setInput("b", ONE)
+                .setInput("c", ZERO)
+                .setInput("d", ONE)
+
+                .execute();
+
+        assertThat(automate.getOutput("y"), is(ZERO));
+    }
+
+    private Automate generateAutomate_addingByNames() {
+        Automate resultAutomate = new Automate();
+
+        resultAutomate
+                .setInputsQuantity(4)
                 .setOutputsQuantity(1)
 
                 .setInputName(0, "a")
@@ -120,15 +148,31 @@ public class AutomateTest {
                 .bindOutput("y", "2")
 
                 .bindElements("0", "2")
-                .bindElements("1", "2")
+                .bindElements("1", "2");
 
-                .setInput("a", ZERO)
-                .setInput("b", ONE)
-                .setInput("c", ZERO)
-                .setInput("d", ONE)
+        return resultAutomate;
+    }
 
-                .execute();
+    //--------------------------------------------------
 
-        assertThat(automate.getOutput("y"), is(ZERO));
+    @Test
+    public void getInputsNames() throws Exception {
+        automate = generateAutomate_addingByNames();
+
+        assertThat(automate.getInputNames(), hasItems("a", "b", "c", "d"));
+    }
+
+    @Test
+    public void getElementsNames() throws Exception {
+        automate = generateAutomate_addingByNames();
+
+        assertThat(automate.getElementNames(), hasItems("0", "1", "2"));
+    }
+
+    @Test
+    public void getOutputsNames() throws Exception {
+        automate = generateAutomate_addingByNames();
+
+        assertThat(automate.getOutputNames(), hasItems("y"));
     }
 }
