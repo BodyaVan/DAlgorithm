@@ -7,7 +7,7 @@ import ua.kpi.dalgorithm.signal.Signal;
  *
  * @author Bohdan Vanchuhov
  */
-public interface LogicComponent extends Indexable {
+public interface LogicComponent extends Identifiable {
     void execute();
 
     Signal getOutput();

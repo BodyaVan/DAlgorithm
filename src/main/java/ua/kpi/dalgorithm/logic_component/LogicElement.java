@@ -7,7 +7,7 @@ import ua.kpi.dalgorithm.signal.Signal;
  *
  * @author Bohdan Vanchuhov
  */
-public interface LogicElement extends LogicComponent {
+public interface LogicElement extends TestedLogicComponent<LogicElement> {
     void addInput(LogicComponent inputComponent);
 
     void addInput(Signal inputSignal);

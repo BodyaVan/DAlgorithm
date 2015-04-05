@@ -14,9 +14,7 @@ import java.util.stream.Collectors;
  *
  * @author Bohdan Vanchuhov
  */
-public class LogicElementImpl implements LogicElement {
-    private int index;
-
+public class LogicElementImpl extends TestedLogicComponentTemplate<LogicElement> implements LogicElement {
     private LogicOperation operation;
 
     private List<LogicComponent> inputs = new ArrayList<>();
@@ -137,12 +135,7 @@ public class LogicElementImpl implements LogicElement {
     //--------------------------------------------------
 
     @Override
-    public int getIndex() {
-        return index;
-    }
-
-    @Override
-    public void setIndex(int index) {
-        this.index = index;
+    public Signal getUnimportantInput() {
+        return operation.getUnimportantInput();
     }
 }

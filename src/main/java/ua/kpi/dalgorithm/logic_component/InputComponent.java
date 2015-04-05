@@ -9,9 +9,7 @@ import static ua.kpi.dalgorithm.signal.Signal.UNDEFINED;
  *
  * @author Bohdan Vanchuhov
  */
-public class InputComponent implements LogicComponent {
-    private int index;
-
+public class InputComponent extends TestedLogicComponentTemplate {
     private Signal input = UNDEFINED;
     private Signal output = UNDEFINED;
 
@@ -22,20 +20,12 @@ public class InputComponent implements LogicComponent {
         this.input = input;
     }
 
-    public Signal getInput() {
-        return input;
-    }
-
     public void setInput(Signal input) {
         this.input = input;
     }
 
     public void execute() {
         output = input;
-    }
-
-    public Signal getOutput() {
-        return output;
     }
 
     @Override
@@ -56,5 +46,10 @@ public class InputComponent implements LogicComponent {
     @Override
     public void setIndex(int index) {
         this.index = index;
+    }
+
+    @Override
+    public Signal getUnimportantInput() {
+        return UNDEFINED;
     }
 }
