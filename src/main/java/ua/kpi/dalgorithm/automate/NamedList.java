@@ -1,24 +1,23 @@
 package ua.kpi.dalgorithm.automate;
 
 import ua.kpi.dalgorithm.exceptions.FixedSizeException;
-import ua.kpi.dalgorithm.logic_component.Indexable;
-import ua.kpi.dalgorithm.util.ListUtils;
 
 import java.util.*;
 import java.util.function.Supplier;
 
 import static ua.kpi.dalgorithm.exceptions.ExceptionMessages.*;
+import static ua.kpi.dalgorithm.util.ListUtils.createFixedSizeConstructedList;
 
 /**
  * Created on 01.04.2015
  *
  * @author Bohdan Vanchuhov
  */
-public class NamedList<T extends Indexable> implements Iterable<T> {
-    private List<T> items = new ArrayList<>();
-    private Map<String, Integer> nameIndexMap = new HashMap<>();
+public class NamedList<T> implements Iterable<T> {
+    protected List<T> items = new ArrayList<>();
+    protected Map<String, Integer> nameIndexMap = new HashMap<>();
+    protected boolean isFixedSize = false;
     private Supplier<T> defaultItemFactory = () -> null;
-    private boolean isFixedSize = false;
 
     public NamedList() {
     }
@@ -32,8 +31,7 @@ public class NamedList<T extends Indexable> implements Iterable<T> {
     }
 
     public void setSize(int size) {
-        items = org.apache.commons.collections4.ListUtils.fixedSizeList(
-                ListUtils.createConstructedList(size, defaultItemFactory));
+        items = createFixedSizeConstructedList(size, defaultItemFactory);
         isFixedSize = true;
     }
 
@@ -71,13 +69,8 @@ public class NamedList<T extends Indexable> implements Iterable<T> {
 
     public NamedList<T> add(T item) {
         items.add(item);
-        setIndexInItem(item, getLastItemIndex());
 
         return this;
-    }
-
-    private void setIndexInItem(T item, int index) {
-        item.setIndex(index);
     }
 
     public NamedList<T> add(T item, String itemName) {
@@ -107,7 +100,6 @@ public class NamedList<T extends Indexable> implements Iterable<T> {
 
     public NamedList<T> set(int index, T item) {
         items.set(index, item);
-        setIndexInItem(item, index);
 
         return this;
     }
@@ -132,5 +124,22 @@ public class NamedList<T extends Indexable> implements Iterable<T> {
 
     public boolean isEmpty() {
         return items.isEmpty();
+    }
+
+    public List<T> getItems() {
+        return items;
+    }
+
+    public List<String> getNames() {
+        List<String> names = new ArrayList<>();
+        for (int i = 0, last = getSize(); i < last; i++) {
+            final int index = i;
+            String name = nameIndexMap.entrySet().stream()
+                    .filter(entry -> entry.getValue() == index)
+                    .map(entry -> entry.getKey())
+                    .findFirst().get();
+            names.add(name);
+        }
+        return names;
     }
 }
