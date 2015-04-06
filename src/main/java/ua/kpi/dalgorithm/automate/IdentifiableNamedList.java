@@ -16,38 +16,31 @@ public class IdentifiableNamedList<T extends Identifiable> extends NamedList<T> 
     public IdentifiableNamedList() {
     }
 
-    public IdentifiableNamedList(Supplier<T> defaultItemFactory) {
-        super(defaultItemFactory);
+    public IdentifiableNamedList(Supplier<T> defaultItemFactory, NameGenerator nameGenerator) {
+        super(defaultItemFactory, nameGenerator);
     }
 
     @Override
-    public NamedList<T> add(T item) {
-        super.add(item);
-        setIndexInItem(item, getLastItemIndex());
+    protected void afterAdd(T item, int index, String itemName) {
+        super.afterAdd(item, index, itemName);
 
-        return this;
-    }
-
-    @Override
-    public NamedList<T> set(int index, T item) {
-        super.set(index, item);
-        setIndexInItem(item, index);
-
-        return this;
-    }
-
-    private void setIndexInItem(T item, int index) {
         item.setIndex(index);
+        item.setName(itemName);
     }
 
     @Override
-    public NamedList<T> setName(int index, String name) {
-        super.setName(index, name);
+    protected void afterSetName(T item, String name) {
+        super.afterSetName(item, name);
 
-        T item = get(index);
         item.setName(name);
+    }
 
-        return this;
+    @Override
+    protected void afterSet(int index, String indexName, T item) {
+        super.afterSet(index, indexName, item);
+
+        item.setIndex(index);
+        item.setName(indexName);
     }
 
     @Override

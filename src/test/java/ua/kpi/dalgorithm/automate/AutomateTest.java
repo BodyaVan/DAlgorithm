@@ -84,7 +84,8 @@ public class AutomateTest {
     private Automate generateAutomate_addingByIndexes() {
         Automate resultAutomate = new Automate();
 
-        resultAutomate.setInputsQuantity(4)
+        resultAutomate
+                .setInputsQuantity(4)
                 .setOutputsQuantity(1);
 
         int[] elementIndexes = {
@@ -156,21 +157,44 @@ public class AutomateTest {
     //--------------------------------------------------
 
     @Test
-    public void getInputsNames() throws Exception {
+    public void getInputsNames_addingByIndexes() throws Exception {
+        automate = generateAutomate_addingByIndexes();
+
+        assertThat(automate.getInputNames(), hasItems("x0", "x1", "x2", "x3"));
+    }
+
+    @Test
+    public void getElementsNames_addingByIndexes() throws Exception {
+        automate = generateAutomate_addingByIndexes();
+
+        assertThat(automate.getElementNames(), hasItems("e0", "e1", "e2"));
+    }
+
+    @Test
+    public void getOutputsNames_addingByIndexes() throws Exception {
+        automate = generateAutomate_addingByIndexes();
+
+        assertThat(automate.getOutputNames(), hasItems("y0"));
+    }
+
+    //--------------------------------------------------
+
+    @Test
+    public void getInputsNames_addingByNames() throws Exception {
         automate = generateAutomate_addingByNames();
 
         assertThat(automate.getInputNames(), hasItems("a", "b", "c", "d"));
     }
 
     @Test
-    public void getElementsNames() throws Exception {
+    public void getElementsNames_addingByNames() throws Exception {
         automate = generateAutomate_addingByNames();
 
         assertThat(automate.getElementNames(), hasItems("0", "1", "2"));
     }
 
     @Test
-    public void getOutputsNames() throws Exception {
+    public void getOutputsNames_addingByNames() throws Exception {
         automate = generateAutomate_addingByNames();
 
         assertThat(automate.getOutputNames(), hasItems("y"));

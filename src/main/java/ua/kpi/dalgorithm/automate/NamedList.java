@@ -16,23 +16,37 @@ import static ua.kpi.dalgorithm.util.ListUtils.createFixedSizeConstructedList;
 public class NamedList<T> implements Iterable<T> {
     protected List<T> items = new ArrayList<>();
     protected Map<String, Integer> nameIndexMap = new HashMap<>();
+
     protected boolean isFixedSize = false;
+    protected NameGenerator nameGenerator;
     private Supplier<T> defaultItemFactory = () -> null;
 
     public NamedList() {
     }
 
-    public NamedList(Supplier<T> defaultItemFactory) {
+    public NamedList(Supplier<T> defaultItemFactory, NameGenerator nameGenerator) {
         this.defaultItemFactory = defaultItemFactory;
+        this.nameGenerator = nameGenerator;
+    }
+
+    public NamedList<T> setDefaultItemFactory(Supplier<T> defaultItemFactory) {
+        this.defaultItemFactory = defaultItemFactory;
+        return this;
+    }
+
+    public NamedList<T> setNameGenerator(NameGenerator nameGenerator) {
+        this.nameGenerator = nameGenerator;
+        return this;
     }
 
     public int getSize() {
         return items.size();
     }
 
-    public void setSize(int size) {
+    public NamedList<T> setSize(int size) {
         items = createFixedSizeConstructedList(size, defaultItemFactory);
         isFixedSize = true;
+        return this;
     }
 
     public T get(int index) {
@@ -67,8 +81,23 @@ public class NamedList<T> implements Iterable<T> {
         return nameIndexMap.get(name);
     }
 
-    public NamedList<T> add(T item) {
+    //--------------------------------------------------
+
+    protected void add0(T item) {
         items.add(item);
+    }
+
+    protected void afterAdd(T item, int index, String itemName) {
+    }
+
+    public NamedList<T> add(T item) {
+        add0(item);
+
+        int index = getLastItemIndex();
+        String itemName = nameGenerator.generateName(index);
+        setName(index, itemName);
+
+        afterAdd(item, index, itemName);
 
         return this;
     }
@@ -76,10 +105,19 @@ public class NamedList<T> implements Iterable<T> {
     public NamedList<T> add(T item, String itemName) {
         checkNameNotExists(itemName);
 
-        add(item);
-        setName(getLastItemIndex(), itemName);
+        add0(item);
+
+        int index = getLastItemIndex();
+        setName(index, itemName);
+
+        afterAdd(item, index, itemName);
 
         return this;
+    }
+
+    //--------------------------------------------------
+
+    protected void afterSetName(T item, String name) {
     }
 
     public NamedList<T> setName(int index, String name) {
@@ -87,6 +125,7 @@ public class NamedList<T> implements Iterable<T> {
         checkNameNotExists(name);
 
         nameIndexMap.put(name, index);
+        afterSetName(get(index), name);
 
         return this;
     }
@@ -98,8 +137,22 @@ public class NamedList<T> implements Iterable<T> {
         return items.size() - 1;
     }
 
-    public NamedList<T> set(int index, T item) {
+    //--------------------------------------------------
+
+    protected void set0(int index, T item) {
         items.set(index, item);
+    }
+
+    protected void afterSet(int index, String name, T item) {
+    }
+
+    public NamedList<T> set(int index, T item) {
+        set0(index, item);
+
+        String itemName = nameGenerator.generateName(index);
+        setName(index, itemName);
+
+        afterSet(index, itemName, item);
 
         return this;
     }
@@ -108,7 +161,11 @@ public class NamedList<T> implements Iterable<T> {
         checkNameExists(name);
 
         Integer index = nameIndexMap.get(name);
-        return set(index, item);
+        set0(index, item);
+
+        afterSet(index, name, item);
+
+        return this;
     }
 
     private void checkNameNotExists(String name) {

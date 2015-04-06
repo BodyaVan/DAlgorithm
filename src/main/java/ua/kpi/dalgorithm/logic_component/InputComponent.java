@@ -11,7 +11,6 @@ import static ua.kpi.dalgorithm.signal.Signal.UNDEFINED;
  */
 public class InputComponent extends TestedLogicComponentTemplate {
     private Signal input = UNDEFINED;
-    private Signal output = UNDEFINED;
 
     public InputComponent() {
     }
@@ -24,6 +23,7 @@ public class InputComponent extends TestedLogicComponentTemplate {
         this.input = input;
     }
 
+    @Override
     public void execute() {
         output = input;
     }
